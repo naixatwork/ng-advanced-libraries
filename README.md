@@ -8,3 +8,6 @@ this project contains utility libraries dedicated to some primary features of th
 
 event though performance, bundle sizes are important and are considered.
 they aren't part of the main goal of this tool.
+
+## Angular advanced forms
+`npm i ng-advanced-forms`
