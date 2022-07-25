@@ -114,25 +114,6 @@
           "options": {
             "browserTarget": "development:build"
           }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/development/src/test.ts",
-            "polyfills": "projects/development/src/polyfills.ts",
-            "tsConfig": "projects/development/tsconfig.spec.json",
-            "karmaConfig": "projects/development/karma.conf.js",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/development/src/favicon.ico",
-              "projects/development/src/assets"
-            ],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "projects/development/src/styles.scss"
-            ],
-            "scripts": []
-          }
         }
       }
     }
