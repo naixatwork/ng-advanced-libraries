@@ -1,10 +1,11 @@
-import {ControlValueAccessor, FormGroup} from "@angular/forms";
+import {ControlValueAccessor, FormGroup, NgControl} from "@angular/forms";
 import {Subject, takeUntil} from "rxjs";
 import {Directive, OnDestroy} from "@angular/core";
 
 @Directive()
 export class FormControlAdapter implements ControlValueAccessor, OnDestroy {
   protected subscribeAll: Subject<null>;
+  public ngControl!: NgControl;
 
   public get form(): FormGroup {
     return this._form;
@@ -21,7 +22,16 @@ export class FormControlAdapter implements ControlValueAccessor, OnDestroy {
   private onTouched = () => {
   };
 
-  constructor(protected _form: FormGroup) {
+  constructor(
+    protected _form: FormGroup,
+    ngControl: NgControl
+  ) {
+    const setNgControlValueAccessor = () => {
+      this.ngControl = ngControl;
+      this.ngControl.valueAccessor = this;
+    }
+
+    setNgControlValueAccessor();
     this.subscribeAll = new Subject<null>();
     this.callRegisteredFunctions();
   }

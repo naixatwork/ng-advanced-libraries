@@ -15,13 +15,13 @@ export abstract class MatFormFieldAdapter<T extends { [key: string]: any; }> imp
 
   focused = false;
 
-  private static createdCounter = 0;
+  private static instantiateCounter = 0;
 
   get empty() {
     return isObjectEmpty(this.form.value)
   }
 
-  @HostBinding() readonly id = `${this.controlType}-${MatFormFieldAdapter.createdCounter}`;
+  @HostBinding() readonly id = `${this.controlType}-${MatFormFieldAdapter.instantiateCounter}`;
 
   readonly stateChanges = new Subject<void>();
 
@@ -95,15 +95,12 @@ export abstract class MatFormFieldAdapter<T extends { [key: string]: any; }> imp
     injector: Injector,
   ) {
     const setNgControl = () => {
-      this.ngControl = injector.get(NgControl);
+      this.ngControl = formControlAdapter.ngControl;
+      this.ngControl.valueAccessor = formControlAdapter;
     };
 
     const setFocusMonitor = () => {
       this.focusMonitor = injector.get(FocusMonitor);
-    };
-
-    const setFormControlAdapterAsValueAccessor = () => {
-      this.ngControl.valueAccessor = formControlAdapter;
     };
 
     const setElementRef = () => {
@@ -122,13 +119,12 @@ export abstract class MatFormFieldAdapter<T extends { [key: string]: any; }> imp
     setNgControl();
     setFocusMonitor();
     setElementRef();
-    setFormControlAdapterAsValueAccessor();
     monitorIfElementIsBeingFocusedOn();
-    this.increaseNumberOfTimesThisClassHasCreated();
+    this.increaseInstanceCounter();
   }
 
-  private increaseNumberOfTimesThisClassHasCreated(): void {
-    MatFormFieldAdapter.createdCounter++;
+  private increaseInstanceCounter(): void {
+    MatFormFieldAdapter.instantiateCounter++;
   }
 
   setDescribedByIds(ids: string[]): void {
