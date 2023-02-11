@@ -17,7 +17,10 @@ import {FormBuilder, NgControl} from "@angular/forms";
   ]
 
 })
-export class FullNameControllerComponent extends MatFormFieldAdapter<any> implements OnInit {
+export class FullNameControllerComponent extends MatFormFieldAdapter<{
+  first: any,
+  last: any
+}> implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly injector: Injector,
@@ -31,7 +34,6 @@ export class FullNameControllerComponent extends MatFormFieldAdapter<any> implem
     )
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }

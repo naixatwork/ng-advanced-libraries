@@ -9,7 +9,7 @@ import {isObjectEmpty} from "../shared/functions/isObjectEmpty/isObjectEmpty.fun
 
 @Directive()
 export abstract class MatFormFieldAdapter<T extends { [key: string]: any; }> implements MatFormFieldControl<T>, OnDestroy {
-  public get form(): FormControlAdapter['form'] {
+  public get form(): FormControlAdapter<T>['form'] {
     return this.formControlAdapter.form;
   }
 
@@ -26,7 +26,7 @@ export abstract class MatFormFieldAdapter<T extends { [key: string]: any; }> imp
   readonly stateChanges = new Subject<void>();
 
   get value(): T {
-    return this.form.value;
+    return this.form.value as T;
   }
 
   set value(value: T) {
@@ -91,7 +91,7 @@ export abstract class MatFormFieldAdapter<T extends { [key: string]: any; }> imp
 
   protected constructor(
     public readonly controlType: string,
-    public readonly formControlAdapter: FormControlAdapter,
+    public readonly formControlAdapter: FormControlAdapter<T>,
     injector: Injector,
   ) {
     const setNgControl = () => {

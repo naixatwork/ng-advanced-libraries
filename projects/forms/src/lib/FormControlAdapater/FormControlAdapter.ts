@@ -3,11 +3,11 @@ import {Subject, takeUntil} from "rxjs";
 import {Directive, OnDestroy} from "@angular/core";
 
 @Directive()
-export class FormControlAdapter implements ControlValueAccessor, OnDestroy {
+export class FormControlAdapter<T extends { [key: string]: any}> implements ControlValueAccessor, OnDestroy {
   protected subscribeAll: Subject<null>;
   public ngControl!: NgControl;
 
-  public get form(): FormGroup {
+  public get form(): FormGroup<T> {
     return this._form;
   }
 
@@ -23,7 +23,7 @@ export class FormControlAdapter implements ControlValueAccessor, OnDestroy {
   };
 
   constructor(
-    protected _form: FormGroup,
+    protected _form: FormGroup<T>,
     ngControl: NgControl
   ) {
     const setNgControlValueAccessor = () => {
