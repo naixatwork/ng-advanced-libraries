@@ -1,0 +1,14 @@
+.background {
+  @apply h-full max-h-full;
+  background-image: url("/assets/background/pink-lava-lamp.jpg");
+  @apply bg-no-repeat bg-cover bg-fixed;
+}
+
+.dashboard {
+  @apply w-full h-full flex;
+
+  background: rgba(0, 1, 4, 0.85);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8.9px);
+  -webkit-backdrop-filter: blur(8.9px);
+}
