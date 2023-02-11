@@ -8,7 +8,7 @@ import {FormControlAdapter} from "../FormControlAdapater/FormControlAdapter";
 import {isObjectEmpty} from "../shared/functions/isObjectEmpty/isObjectEmpty.func";
 
 @Directive()
-export abstract class MatFormFieldAdapter<T> implements MatFormFieldControl<T>, OnDestroy {
+export abstract class MatFormFieldAdapter<T extends { [key: string]: any; }> implements MatFormFieldControl<T>, OnDestroy {
   public get form(): FormControlAdapter['form'] {
     return this.formControlAdapter.form;
   }
